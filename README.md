@@ -9,5 +9,8 @@ This is a small agent based simulation, with 2 species, the 'O' (pray), and the 
 ## graphics 
 I didn't use any graphics library, the simulation runs on a matrix MxM (with M defined under the libraries inclusion in the main), the 'O' are light blue while the 'X' are red, this effect is acived using the ANSI escape codes.
 
-## pray behavior 
-There is a Cell metod called "
+## pray-predator behavior 
+There is a Cell metod called "CambiaDirezione" (ChangeDirection in english), that define the velocity, it calculate the best direction to minimize the sum of the distance from predators in a defined range, if there are no predator it calcolate the best direction to minimize the distance to the closest pray, both prays and predators go twords pray and run away from predators, the prays move every step of the simulation, the predators move every 2 steps.
+
+## feedback
+I’m self-taught, if you have any feedback, feel free to email me at "e.schiavocampo1@gmail.com"
