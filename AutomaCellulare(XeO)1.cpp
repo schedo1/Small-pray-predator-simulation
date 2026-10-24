@@ -22,6 +22,7 @@ adiacente AdiacenteA(vector <Cell> V, Point A){
 void OtoX(vector <Cell> &O, vector <Cell> &X, int i){
 	Cell New = O[i]; 
 	New.simbolo = X[0].simbolo;
+	New.AppenaNata = true;
 	X.push_back(New);
 	
 	O.erase(O.begin() + i);
@@ -68,6 +69,7 @@ int main(){
 		O[i].c = Coordinate[i].c;
 		O[i].P.r = O[i].r;
 		O[i].P.c = O[i].c;
+		O[i].AppenaNata = false;
 		m1.add(O[i].r, O[i].c, 'O');
 	}
 	for(int i=0; i<X.size(); i++){
@@ -75,6 +77,7 @@ int main(){
 		X[i].c = Coordinate[i+O.size()].c;
 		X[i].P.r = X[i].r;
 		X[i].P.c = X[i].c;
+		X[i].AppenaNata = false;
 		m1.add(X[i].r, X[i].c, 'X');
 	}
 	
@@ -114,9 +117,11 @@ int main(){
 			adiacente a = AdiacenteA(X, X[i].P);
 			if(a.boolean){
 				int j = DaCoordinateToIndice(X, a.B);
-				m1.sub(X[i].r, X[i].c); X.erase(X.begin() + max(i, j)); 
-				m1.sub(X[j].r, X[j].c); X.erase(X.begin() + min(i, j));
-				i = min(i, j) - 1;
+				if(!(X[i].AppenaNata) && !(X[j].AppenaNata)){
+					m1.sub(X[i].r, X[i].c); X.erase(X.begin() + max(i, j)); 
+					m1.sub(X[j].r, X[j].c); X.erase(X.begin() + min(i, j));
+					i = min(i, j) - 1;	
+				}
 			}
 		}
 		
@@ -127,13 +132,15 @@ int main(){
 		//move e add	
 		for(int i=0; i<O.size(); i++){ 
 			O[i].move(m1); m1.add(O[i].r, O[i].c, 'O', 36);
+			O[i].AppenaNata = false;
 		} 
 		if(t%2==0) for(int i=0; i<X.size(); i++){ 
 			X[i].move(m1); m1.add(X[i].r, X[i].c, 'X', 31); 
+			X[i].AppenaNata = false;
 		} 
 		m1.print();
 		gotoxy(0,0);
-		Sleep(250); //125
+		Sleep(350); //125
 		
 		for(int i=0; i<O.size(); i++) if(O[i].cooldown<0) O[i].cooldown++;
 	}
