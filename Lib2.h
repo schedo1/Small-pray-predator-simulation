@@ -110,6 +110,7 @@ public:
 	char simbolo;
 	Point P; 
 	int cooldown;
+	bool AppenaNata;
 	
 	Cell(char ch, int vr, int vc){
 		this->simbolo=ch;
@@ -262,5 +263,4 @@ public:
 	}
 
 };
-
 
